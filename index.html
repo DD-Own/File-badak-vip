@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redeem by Deadlox</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap');
+        
+        :root {
+            --neon-pink: #ff2a6d;
+            --neon-blue: #05d9e8;
+            --neon-purple: #d300c5;
+            --dark-bg: #0d0221;
+            --darker-bg: #05010e;
+            --text-glow: 0 0 10px currentColor;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--neon-blue);
+            font-family: 'Rajdhani', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(213, 0, 197, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(5, 217, 232, 0.15) 0%, transparent 30%),
+                linear-gradient(to bottom, var(--darker-bg), var(--dark-bg));
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(90deg, var(--dark-bg) 21px, transparent 1%) center,
+                linear-gradient(var(--dark-bg) 21px, transparent 1%) center,
+                var(--neon-pink);
+            background-size: 22px 22px;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 800px;
+            padding: 2rem;
+            background: rgba(13, 2, 33, 0.8);
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue), 
+                        inset 0 0 10px var(--neon-blue);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .container::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            right: -50%;
+            bottom: -50%;
+            background: linear-gradient(
+                to bottom right,
+                transparent 45%,
+                var(--neon-pink),
+                transparent 55%
+            );
+            transform: rotate(30deg);
+            opacity: 0.1;
+            pointer-events: none;
+            animation: scan 6s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateY(-100%) rotate(30deg); }
+            100% { transform: translateY(100%) rotate(30deg); }
+        }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--neon-pink);
+            text-shadow: var(--text-glow);
+            letter-spacing: 3px;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        h1::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--neon-purple), transparent);
+            margin-top: 10px;
+            box-shadow: 0 0 5px var(--neon-purple);
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--neon-blue);
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-shadow: var(--text-glow);
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(5, 1, 14, 0.7);
+            border: 1px solid var(--neon-blue);
+            border-radius: 5px;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 5px rgba(5, 217, 232, 0.3), 
+                        0 0 10px rgba(5, 217, 232, 0.1);
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--neon-pink);
+            box-shadow: inset 0 0 10px rgba(255, 42, 109, 0.5), 
+                        0 0 15px rgba(255, 42, 109, 0.3);
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, var(--neon-pink), var(--neon-purple));
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 10px var(--neon-pink);
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--neon-pink);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        button::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent 45%,
+                rgba(255, 255, 255, 0.3),
+                transparent 55%
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+        
+        .download-section {
+            display: none;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(5, 1, 14, 0.5);
+            border: 1px solid var(--neon-purple);
+            border-radius: 5px;
+            box-shadow: 0 0 15px var(--neon-purple), 
+                        inset 0 0 5px var(--neon-purple);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .download-section h2 {
+            color: var(--neon-pink);
+            margin-bottom: 1rem;
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: var(--text-glow);
+        }
+        
+        .download-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(to right, var(--neon-blue), #00a2ff);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-top: 1rem;
+            box-shadow: 0 0 10px var(--neon-blue);
+            width: 100%;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+        
+        .error-message {
+            color: #ff3333;
+            text-align: center;
+            margin-top: 1rem;
+            text-shadow: 0 0 5px rgba(255, 51, 51, 0.5);
+            display: none;
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float linear infinite;
+        }
+        
+        @keyframes float {
+            to { transform: translateY(-100vh) translateX(20px); }
+        }
+        
+        .floating-text {
+            position: absolute;
+            color: rgba(5, 217, 232, 0.1);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            user-select: none;
+            animation: float-text 20s linear infinite;
+        }
+        
+        @keyframes float-text {
+            to { transform: translateY(-100vh); }
+        }
+        
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: rgba(5, 217, 232, 0.7);
+            font-size: 0.9rem;
+            text-shadow: 0 0 5px rgba(5, 217, 232, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <h1>REDEEM BY DEADLOX</h1>
+        
+        <div class="input-group">
+            <label for="redeemCode">ENTER REDEEM CODE</label>
+            <input type="text" id="redeemCode" placeholder="XXXX-XXXX" autocomplete="off">
+        </div>
+        
+        <button id="redeemBtn">REDEEM</button>
+        
+        <div class="error-message" id="errorMessage">Invalid redeem code. Please try again.</div>
+        
+        <div class="download-section" id="publicDownload">
+            <h2>PUBLIC FILE UNLOCKED</h2>
+            <p>Thank you for redeeming the public file code. Click below to download:</p>
+            <a href="https://www.mediafire.com/file/gs91eq1iwpue6bl/DZ-VIP.zip/file" class="download-btn" target="_blank">DOWNLOAD PUBLIC FILE</a>
+        </div>
+        
+        <div class="download-section" id="privateDownload">
+            <h2>PRIVATE FILE UNLOCKED</h2>
+            <p>Thank you for redeeming the private file code. Click below to download:</p>
+            <a href="https://www.mediafire.com/file/ft5p9cbv7zc68mu/DZ+-+VIP+PRIVATE.zip/file" class="download-btn" target="_blank">DOWNLOAD PRIVATE FILE</a>
+        </div>
+    </div>
+    
+    <footer>
+        © 2025 Deadlox Redeem System | priv and pub
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create floating particles
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.width = `${Math.random() * 3 + 1}px`;
+                particle.style.height = particle.style.width;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Create floating text elements
+            const texts = ['DEADLOX', 'VIP', 'ACCESS', 'CYBER', 'PUNK', '2023', 'TEAM-DDXZ', 'REDEEM'];
+            for (let i = 0; i < 20; i++) {
+                const text = document.createElement('div');
+                text.classList.add('floating-text');
+                text.textContent = texts[Math.floor(Math.random() * texts.length)];
+                text.style.left = `${Math.random() * 100}%`;
+                text.style.top = `${Math.random() * 100 + 100}%`;
+                text.style.animationDuration = `${Math.random() * 20 + 20}s`;
+                text.style.animationDelay = `${Math.random() * 10}s`;
+                text.style.opacity = Math.random() * 0.2 + 0.1;
+                text.style.fontSize = `${Math.random() * 10 + 8}px`;
+                document.body.appendChild(text);
+            }
+            
+            // Redeem button functionality
+            const redeemBtn = document.getElementById('redeemBtn');
+            const redeemCode = document.getElementById('redeemCode');
+            const errorMessage = document.getElementById('errorMessage');
+            const publicDownload = document.getElementById('publicDownload');
+            const privateDownload = document.getElementById('privateDownload');
+            
+            redeemBtn.addEventListener('click', function() {
+                const code = redeemCode.value.trim().toUpperCase();
+                
+                // Hide all sections first
+                errorMessage.style.display = 'none';
+                publicDownload.style.display = 'none';
+                privateDownload.style.display = 'none';
+                
+                // Check codes
+                if (code === 'DEAD-LOXX') {
+                    publicDownload.style.display = 'block';
+                    redeemCode.value = '';
+                } else if (code === 'TEAM-DDXZ') {
+                    privateDownload.style.display = 'block';
+                    redeemCode.value = '';
+                } else {
+                    errorMessage.style.display = 'block';
+                }
+            });
+            
+            // Allow pressing Enter key to redeem
+            redeemCode.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    redeemBtn.click();
+                }
+            });
+            
+            // Add smooth hover effects to container
+            const container = document.querySelector('.container');
+            container.addEventListener('mousemove', (e) => {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                container.style.boxShadow = `
+                    ${10 * (x - 0.5)}px ${10 * (y - 0.5)}px 30px var(--neon-blue),
+                    ${-10 * (x - 0.5)}px ${-10 * (y - 0.5)}px 30px var(--neon-pink),
+                    inset 0 0 10px var(--neon-blue)
+                `;
+            });
+            
+            container.addEventListener('mouseleave', () => {
+                container.style.boxShadow = `
+                    0 0 20px var(--neon-blue), 
+                    inset 0 0 10px var(--neon-blue)
+                `;
+            });
+        });
+    </script>
+</body>
+</html>
